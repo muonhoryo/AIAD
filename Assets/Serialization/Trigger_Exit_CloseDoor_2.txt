@@ -1,0 +1,3 @@
+Message 2 TurnOff
+TurnInteraction 2 Off
+Destroy 4

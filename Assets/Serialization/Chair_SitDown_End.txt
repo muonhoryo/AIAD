@@ -1,0 +1,9 @@
+SetPlayerMovingMode 1
+Destroy 7
+SelectCameraMode 2
+SetView 0 270 0
+TP 9 2788,78 0,875 0
+SetCameraTarget 9
+SetCameraOffset 0 0,375 0
+UnlockCtrl
+SetTask Запустить панель управления

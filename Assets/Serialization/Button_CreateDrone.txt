@@ -1,0 +1,6 @@
+TP 9 2788,13 1,25 0
+LockCtrl
+TurnInteraction 19 Off
+SelectCameraMode 1
+SetCameraTarget null
+SetAnimTrigger 10 Terminal

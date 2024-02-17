@@ -1,0 +1,1 @@
+SetAnimTrigger 10 LowHP

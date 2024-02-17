@@ -1,0 +1,6 @@
+TurnInteraction 14 Off
+SetTask 
+Delay 10
+Destroy 21
+TurnInteraction 18 On
+SetTask Включить терминал дронов

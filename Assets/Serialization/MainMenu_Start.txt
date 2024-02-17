@@ -1,0 +1,4 @@
+LockCtrl
+SetAnimTrigger 10 StandUp
+SetAnimTrigger 25 Hide
+SetCursorVisible Off

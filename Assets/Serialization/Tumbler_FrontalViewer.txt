@@ -1,0 +1,6 @@
+TurnInteraction 12 Off
+SetTask 
+Delay 3
+SetObjActive 13 On
+TurnInteraction 14 On
+SetTask Отключить фотонный экран

@@ -1,0 +1,4 @@
+SetObjActive 29 Off
+SetObjActive 30 On
+Delay 7
+SetObjActive 30 Off

@@ -1,0 +1,4 @@
+TurnInteraction 18 Off
+TurnInteraction 15 On
+TurnInteraction 19 On
+SetTask Просчитать маршрут

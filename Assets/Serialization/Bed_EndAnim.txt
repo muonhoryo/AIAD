@@ -1,0 +1,13 @@
+SetPlayerMovingMode 0
+SelectCameraMode 0
+SetCameraTarget 9
+SetPlayerInteractionMode 2
+SetPlayerMovingMode 3
+SetCameraOffset 0 0,645 0
+SetView 0 90 0
+UnlockCtrl
+SetTask Размяться
+SetAnimTrigger 23 Start
+Message 24 Unlock
+Message 26 StartTutorial
+SetObjActive 27 On

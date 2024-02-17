@@ -1,0 +1,2 @@
+TurnInteraction 1 Off
+SetTask Вернуться на мостик

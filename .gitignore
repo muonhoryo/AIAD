@@ -1,0 +1,23 @@
+.vs
+.vsconfig
+Abandoned in an alone dust.sln
+Assembly-CSharp.csproj
+/Library
+/Logs
+/Packages
+/UserSettings
+/obj
+/Assets/Animation
+/Assets/Libraries
+/Assets/Models
+/Assets/PostProcessing
+/Assets/Prefabs
+/Assets/Scenes
+/Assets/Sprites
+/Assets/TextMesh Pro
+/Assets/Textures
+Assets/SelenirumFont SDF.asset
+/Assets/Render/GUI
+/Assets/Render/Others
+/Assets/Render/Ship
+/Temp

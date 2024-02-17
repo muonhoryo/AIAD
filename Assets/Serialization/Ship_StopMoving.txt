@@ -1,0 +1,2 @@
+SetAnimTrigger 10 ShipMovingStop
+Message 22 SetEmergency

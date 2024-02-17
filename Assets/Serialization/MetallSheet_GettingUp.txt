@@ -1,0 +1,2 @@
+TurnInteraction 5 Off
+SetAnimTrigger 5 Start

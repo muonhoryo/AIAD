@@ -1,0 +1,4 @@
+TurnInteraction 16 Off
+TurnInteraction 19 Off
+SetAnimTrigger 22 Move
+SetAnimTrigger 10 ShipMovingStart

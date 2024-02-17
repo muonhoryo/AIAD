@@ -1,0 +1,1 @@
+SetAnimTrigger 7 FinalRotation

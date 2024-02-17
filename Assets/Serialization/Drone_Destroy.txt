@@ -1,0 +1,6 @@
+LockCtrl
+SelectCameraMode 1
+SetCameraTarget null
+TP 10 2788,1 1,2 1,055
+SetView 28,6 0 0
+SetAnimTrigger 10 TerminalExit

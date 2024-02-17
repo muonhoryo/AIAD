@@ -1,0 +1,4 @@
+Delay 2
+SetObjActive 28 On
+SetObjActive 27 Off
+SetPlayerMovingMode 0

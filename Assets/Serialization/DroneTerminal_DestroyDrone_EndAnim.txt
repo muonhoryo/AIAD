@@ -1,0 +1,9 @@
+TP 9 2788,13 0,875 0
+SelectCameraMode 2
+SetCameraTarget 9
+SetView 0 0 0
+SetCameraOffset 0 0,375 0
+SetPlayerMovingMode 1
+SetPlayerInteractionMode 0
+UnlockCtrl
+TurnInteraction 19 On

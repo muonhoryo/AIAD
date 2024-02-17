@@ -1,0 +1,5 @@
+TurnInteraction 15 Off
+TurnInteraction 17 On
+SetTask Выкрутить двигатели на максимум
+Delay 5
+Message 15 TurnOff

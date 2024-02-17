@@ -1,0 +1,7 @@
+Destroy 6
+TurnInteraction 7 Off
+LockCtrl
+SelectCameraMode 1
+SetCameraTarget null
+SetAnimTrigger 10 ChairSitDown
+SetTask 

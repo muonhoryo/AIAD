@@ -1,0 +1,6 @@
+Delay 2
+SetObjActive 28 Off
+SetObjActive 29 On
+SetPlayerInteractionMode 0
+TurnInteraction 1 On
+SetTask Выйти из каюты

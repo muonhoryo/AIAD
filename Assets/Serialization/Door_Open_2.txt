@@ -1,0 +1,2 @@
+TurnInteraction 2 Off
+SetTask Сесть в кресло
