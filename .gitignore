@@ -9,11 +9,10 @@ Assembly-CSharp.csproj
 /obj
 /Assets/Animation
 /Assets/Libraries
-/Assets/Models
+/Assets/Resources
 /Assets/PostProcessing
 /Assets/Prefabs
 /Assets/Scenes
-/Assets/Sprites
 /Assets/TextMesh Pro
 /Assets/Textures
 Assets/SelenirumFont SDF.asset
@@ -21,3 +20,4 @@ Assets/SelenirumFont SDF.asset
 /Assets/Render/Others
 /Assets/Render/Ship
 /Temp
+/Assets/SoundMixer

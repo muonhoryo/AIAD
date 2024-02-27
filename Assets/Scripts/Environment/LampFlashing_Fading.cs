@@ -8,6 +8,7 @@ namespace AIAD
     {
         [SerializeField] private Light PointLight;
         [SerializeField] private MeshRenderer LightingMesh;
+        [SerializeField] private AudioSource SoundSource;
 
         [SerializeField] private float FadingSpeed;
         [SerializeField] private float IntensityMin;
@@ -54,6 +55,7 @@ namespace AIAD
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(FadingInterval_Min, FadingInterval_Max));
+                SoundSource.Play();
                 while (PointLight.intensity>IntensityMin)
                 {
                     float newIntensity = PointLight.intensity - FadingSpeed;

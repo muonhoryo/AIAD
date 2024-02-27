@@ -8,6 +8,7 @@ namespace AIAD
     {
         [SerializeField] private Light PointLight;
         [SerializeField] private MeshRenderer LightingMesh;
+        [SerializeField] private AudioSource SoundSource;
 
         [SerializeField] private float TurningInterval_Min;
         [SerializeField] private float TurningInterval_Max;
@@ -43,6 +44,7 @@ namespace AIAD
             while (true)
             {
                 yield return new WaitForSeconds(Random.Range(TurningInterval_Min, TurningInterval_Max));
+                SoundSource.Play();
                 LightingMesh.material.color = new Color(0, 0, 0);
                 PointLight.enabled = false;
                 yield return new WaitForSeconds(Random.Range(TurningOffDuration_Min, TurningOffDuration_Max));

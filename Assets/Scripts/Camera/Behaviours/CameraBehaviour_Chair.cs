@@ -36,8 +36,8 @@ namespace AIAD
 
         public void Rotate(Vector3 rotation)
         {
-            float newY = CurrentViewRotation.y + rotation.y;
-            float newX = CurrentViewRotation.x + rotation.x;
+            float newY = (CurrentViewRotation.y + rotation.y) % 360;
+            float newX = (CurrentViewRotation.x + rotation.x + 360) % 360;
             //Limit vertical rotation
             if (newX > 90 && newX < 270)
             {

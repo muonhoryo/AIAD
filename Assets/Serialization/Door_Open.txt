@@ -1,2 +1,4 @@
 TurnInteraction 1 Off
 SetTask Вернуться на мостик
+Delay 0,5
+PlaySound 5 MetallSheetFalling2

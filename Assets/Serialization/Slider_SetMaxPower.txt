@@ -1,3 +1,3 @@
 TurnInteraction 17 Off
 TurnInteraction 16 On
-SetTask Улететь домой
+SetTask Вернуться домой

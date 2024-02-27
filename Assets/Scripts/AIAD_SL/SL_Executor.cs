@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using System.Text;
 using Unity.VisualScripting;
+using System.IO;
 
 namespace AIAD.SL
 {
@@ -16,7 +17,7 @@ namespace AIAD.SL
         public static void ExecuteCommandsList(string[] commands)
         {
             int delayCommIndex;
-            for(delayCommIndex = 0; delayCommIndex < commands.Length; delayCommIndex++)
+            for (delayCommIndex = 0; delayCommIndex < commands.Length; delayCommIndex++)
             {
                 int spaceIndex = commands[delayCommIndex].IndexOf(' ');
                 if (spaceIndex == -1)
@@ -27,11 +28,11 @@ namespace AIAD.SL
                     float time;
                     {
                         //Parse time value
-                        int lengthOfSerializedTime = commands[delayCommIndex].IndexOf(' ',spaceIndex+1);
+                        int lengthOfSerializedTime = commands[delayCommIndex].IndexOf(' ', spaceIndex + 1);
                         if (lengthOfSerializedTime == -1)
-                            lengthOfSerializedTime = commands[delayCommIndex].Length - spaceIndex-1;
+                            lengthOfSerializedTime = commands[delayCommIndex].Length - spaceIndex - 1;
                         else
-                            lengthOfSerializedTime =lengthOfSerializedTime -spaceIndex-1;
+                            lengthOfSerializedTime = lengthOfSerializedTime - spaceIndex - 1;
 
                         string serializedTimeValue = commands[delayCommIndex].Substring(spaceIndex + 1, lengthOfSerializedTime);
 
@@ -43,7 +44,7 @@ namespace AIAD.SL
                     break;
                 }
             }
-            for(int i = 0; i < delayCommIndex; i++)
+            for (int i = 0; i < delayCommIndex; i++)
             {
                 ExecuteSingleCommand(commands[i]);
             }
@@ -62,7 +63,7 @@ namespace AIAD.SL
         /// <exception cref="AIADException"></exception>
         public static void ExecuteSingleCommand(string command)
         {
-            if(string.IsNullOrEmpty(command))
+            if (string.IsNullOrEmpty(command))
             {
                 throw new AIADException("Command cannot be null or empty.", "SL_Executor.ReadCommand()");
             }
@@ -177,6 +178,16 @@ namespace AIAD.SL
                     Command_SetCursorVisible(syntax);
                     break;
 
+                //Play sound on position of object with id (format: id sound name)
+                case "PlaySound":
+                    Command_PlaySound(syntax);
+                    break;
+
+                //Stop or Start playing sound on audiosource, assigned to object by id (format: id On/Off)
+                case "TurnAudioSource":
+                    Command_TurnAudioSource(syntax);
+                    break;
+
                 default:
                     throw new AIADException($"Unknown command {syntax[0]}.", "SL_Executor.ExecuteCommandBySyntax");
             }
@@ -188,7 +199,7 @@ namespace AIAD.SL
 
             if (Registry.MainCameraBehaviour == null)
                 throw new AIADException("Missing MainCameraBehaviour.", ExcSrc);
-            if (syntax.Length<3)
+            if (syntax.Length < 3)
                 throw new AIADException("Command haven't any arguments", ExcSrc);
 
             AIADException CantParseValue()
@@ -198,8 +209,8 @@ namespace AIAD.SL
             float x;
             float y;
             float z;
-            if (!float.TryParse(syntax[1],out x)||
-                !float.TryParse(syntax[2],out y))
+            if (!float.TryParse(syntax[1], out x) ||
+                !float.TryParse(syntax[2], out y))
             {
                 throw CantParseValue();
             }
@@ -218,7 +229,7 @@ namespace AIAD.SL
         {
             string ExcSrc = "SL_Executor.Command_TurnInteraction()";
 
-            if (syntax.Length <3)
+            if (syntax.Length < 3)
                 throw new AIADException("Haven't any arguments", ExcSrc);
 
             int id;
@@ -310,12 +321,12 @@ namespace AIAD.SL
             float y;
             float z;
             if (!float.TryParse(syntax[2], out x) ||
-                !float.TryParse(syntax[3], out y)||
+                !float.TryParse(syntax[3], out y) ||
                 !float.TryParse(syntax[4], out z))
             {
                 throw CantParseValue();
             }
-            Rigidbody rgbody= (ObjectIDManager.GetObjectByID(id) as MonoBehaviour).GetComponent<Rigidbody>();
+            Rigidbody rgbody = (ObjectIDManager.GetObjectByID(id) as MonoBehaviour).GetComponent<Rigidbody>();
 
             if (rgbody == null)
                 throw new AIADException($"Object with ID= {id} haven't Rigidbody.", ExcSrc);
@@ -487,8 +498,8 @@ namespace AIAD.SL
             float y;
             float z;
             if (!float.TryParse(syntax[1], out x) ||
-                !float.TryParse(syntax[2], out y)||
-                !float.TryParse(syntax[3],out z))
+                !float.TryParse(syntax[2], out y) ||
+                !float.TryParse(syntax[3], out z))
             {
                 throw CantParseValue();
             }
@@ -526,7 +537,7 @@ namespace AIAD.SL
             if (!float.TryParse(syntax[2], out value))
                 throw new AIADException("Cant parse rotation value argument.", ExcSrc);
 
-            switch (type) 
+            switch (type)
             {
                 case 'x':
                     Registry.MainCameraBehaviour.SetXRotation(value);
@@ -550,7 +561,7 @@ namespace AIAD.SL
                 throw new AIADException("Haven't any argument.", ExcSrc);
 
             StringBuilder str = new StringBuilder();
-            for(int i=1;i<syntax.Length; i++)
+            for (int i = 1; i < syntax.Length; i++)
             {
                 str.Append(syntax[i]);
                 str.Append(' ');
@@ -571,6 +582,58 @@ namespace AIAD.SL
             else if (syntax[1] == "On")
             {
                 Cursor.visible = true;
+            }
+            else
+                throw new AIADException("Third argument must be Off/On.", ExcSrc);
+        }
+        private static void Command_PlaySound(string[] syntax)
+        {
+            string ExcSrc = "SL_Executor.Command_PlaySound()";
+
+            if (syntax.Length < 3)
+                throw new AIADException("Haven't any argument.", ExcSrc);
+
+            int id;
+
+            if (!int.TryParse(syntax[1], out id))
+                throw new AIADException("Can't parse id", ExcSrc);
+
+            string clipPath =SoundsManager.SoundsPath + syntax[2];
+            AudioClip clip = Resources.Load<AudioClip>(clipPath);
+            MonoBehaviour ownObj = ObjectIDManager.GetObjectByID(id) as MonoBehaviour;
+
+            if (clip == null)
+                throw new AIADException($"Missing clip at path= {clipPath} .", ExcSrc);
+            if (ownObj == null)
+                throw new AIADException("Missing object by id= " + id, ExcSrc);
+
+            OneShotSoundCreator.PlaySound(clip, ownObj.transform.position, ownObj.transform);
+        }
+        private static void Command_TurnAudioSource(string[] syntax)
+        {
+            string ExcSrc = "SL_Executor.Command_TurnAudioSource()";
+
+            if (syntax.Length < 3)
+                throw new AIADException("Haven't any arguments", ExcSrc);
+
+            int id;
+
+            if (!int.TryParse(syntax[1], out id))
+                throw new AIADException("Cant parse id", ExcSrc);
+
+            AudioSource src = (ObjectIDManager.GetObjectByID(id) as MonoBehaviour).GetComponent<AudioSource>();
+
+            if (src == null)
+                throw new AIADException($"Haven't audio source on object by ID= {id}.", ExcSrc);
+
+
+            if (syntax[2] == "Off")
+            {
+                src.Stop();
+            }
+            else if (syntax[2] == "On")
+            {
+                src.Play();
             }
             else
                 throw new AIADException("Third argument must be Off/On.", ExcSrc);

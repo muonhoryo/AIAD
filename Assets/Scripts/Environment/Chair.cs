@@ -32,7 +32,7 @@ namespace AIAD
             }
             enabled = false;
         }
-        private void Update()
+        private void FixedUpdate()
         {
             transform.position = new Vector3
                 (MovingModule.CurrentMovableObjectPosition_.x,

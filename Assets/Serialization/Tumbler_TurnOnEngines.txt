@@ -2,3 +2,5 @@ TurnInteraction 16 Off
 TurnInteraction 19 Off
 SetAnimTrigger 22 Move
 SetAnimTrigger 10 ShipMovingStart
+PlaySound 22 Engines_Start
+TurnAudioSource 22 On

@@ -5,4 +5,5 @@ SetView 0 0 0
 SetCameraOffset 0 0 0
 SetPlayerMovingMode 2
 SetPlayerInteractionMode 1
+SetObjActive 32 On
 UnlockCtrl
