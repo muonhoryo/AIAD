@@ -188,6 +188,16 @@ namespace AIAD.SL
                     Command_TurnAudioSource(syntax);
                     break;
 
+                //Change music to track by name
+                case "ChangeMusic":
+                    Command_ChangeMusic(syntax);
+                    break;
+
+                //Set selected audio volume to level from 0 to 100 (format: volumeType volumeLevel)
+                case "SetAudioVolume":
+                    Command_SetAudioVolume(syntax);
+                    break;
+
                 default:
                     throw new AIADException($"Unknown command {syntax[0]}.", "SL_Executor.ExecuteCommandBySyntax");
             }
@@ -598,7 +608,7 @@ namespace AIAD.SL
             if (!int.TryParse(syntax[1], out id))
                 throw new AIADException("Can't parse id", ExcSrc);
 
-            string clipPath =SoundsManager.SoundsPath + syntax[2];
+            string clipPath =AudioManager.SoundsPath + syntax[2];
             AudioClip clip = Resources.Load<AudioClip>(clipPath);
             MonoBehaviour ownObj = ObjectIDManager.GetObjectByID(id) as MonoBehaviour;
 
@@ -637,6 +647,46 @@ namespace AIAD.SL
             }
             else
                 throw new AIADException("Third argument must be Off/On.", ExcSrc);
+        }
+        private static void Command_ChangeMusic(string[] syntax)
+        {
+            string ExcSrc = "SL_Executor.Comman_ChangeMusic()";
+
+            if (syntax.Length < 2)
+                throw new AIADException("Haven't any argument.", ExcSrc);
+
+            string clipPath = AudioManager.MusicPath + syntax[1];
+            AudioClip clip = Resources.Load<AudioClip>(clipPath);
+
+            if (clip == null)
+                throw new AIADException($"Missing clip at path= {clipPath} .", ExcSrc);
+
+            Registry.MusicChanger.SetMusic(clip);
+        }
+        private static void Command_SetAudioVolume(string[] syntax)
+        {
+            string ExcSrc = "Command_SetAudioVolume.Command_SetObjActive()";
+
+            if (syntax.Length < 3)
+                throw new AIADException("Haven't any arguments", ExcSrc);
+
+            AudioSettings.AudioVolumeType vlmType;
+            int vlmLevel;
+
+            if (!Enum.TryParse(syntax[1], out vlmType))
+                throw new AIADException("Cant parse volume type.", ExcSrc);
+            if (!int.TryParse(syntax[2], out vlmLevel))
+                throw new AIADException("Cant parse volume level.", ExcSrc);
+            if (vlmLevel < 0 || vlmLevel > 100)
+                throw new AIADException("Wrong value of volume level.", ExcSrc);
+
+            switch (vlmType)
+            {
+                case AudioSettings.AudioVolumeType.Global: AudioSettings.GlobalVolumeLevel_ = vlmLevel;break;
+                case AudioSettings.AudioVolumeType.Sounds: AudioSettings.SoundsVolumeLevel_ = vlmLevel; break;
+                case AudioSettings.AudioVolumeType.Music: AudioSettings.MusicVolumeLevel_ = vlmLevel; break;
+                case AudioSettings.AudioVolumeType.Ambient: AudioSettings.AmbientVolumeLevel_ = vlmLevel; break;
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 TurnInteraction 14 Off
 SetTask 
+ChangeMusic Outside_Everything
 Delay 10
 Destroy 21
 TurnInteraction 18 On

@@ -18,6 +18,7 @@ namespace AIAD
         [SerializeField] private string SLScriptsSerializationPath;
         [SerializeField] private string SLScriptsFilesType;
         [SerializeField] private string SoundsPath;
+        [SerializeField] private string MusicPath;
         [SerializeField] private string MainSceneName;
 
         private void Awake()
@@ -30,6 +31,8 @@ namespace AIAD
                 throw new AIADException("SLScriptsFilesType cannot be null or empty.", ExcSrc);
             if (string.IsNullOrWhiteSpace(SoundsPath))
                 throw new AIADException("SoundsPath cannot be null or empty.", ExcSrc);
+            if (string.IsNullOrWhiteSpace(MusicPath))
+                throw new AIADException("MusicPath cannot be null or empty.", ExcSrc);
             if (string.IsNullOrEmpty(GlobalVolumeLevelName))
                 throw new AIADException("GlobalVolumeLevelName cannot be null or empty.", ExcSrc);
             if (string.IsNullOrEmpty(SoundsVolumeLevelName))
@@ -43,7 +46,9 @@ namespace AIAD
 
             SL_ScriptManager.ScriptsSerializationPath = SLScriptsSerializationPath;
             SL_ScriptManager.ScriptsFilesType = SLScriptsFilesType;
-            SoundsManager.SoundsPath= SoundsPath;
+
+            AudioManager.MusicPath = MusicPath;
+            AudioManager.SoundsPath= SoundsPath;
 
             AudioSettings.SetConsts(MasterMixer, GlobalVolumeLevelName, SoundsVolumeLevelName, MusicVolumeLevelName, AmbientVolumeLevelName);
 

@@ -32,16 +32,17 @@ namespace AIAD
 
         private void InactiveUpdate()
         {
-            if (Input.GetKeyUp(KeyCode.Tilde))
+            if (Input.GetKeyUp(KeyCode.BackQuote))
             {
                 ActivationAction();
             }
         }
         private void ActiveUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.KeypadEnter))
+            if (Input.GetKeyDown(KeyCode.Return))
             {
                 DebugConsole.RunCommand();
+                DeactivationAction();
             }
             else if (Input.GetKeyDown(KeyCode.Backspace))
             {

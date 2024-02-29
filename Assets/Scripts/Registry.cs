@@ -16,5 +16,6 @@ namespace AIAD
         public static PlayerController PLayerController;
         public static DebugConsoleController DebugConsoleController;
         public static TaskShower TaskShower;
+        public static MusicChanger MusicChanger;
     }
 }

@@ -4,7 +4,7 @@ PlaySound 22 Engines_EmergencyStop
 TurnAudioSource 22 Off
 Delay 3
 SetTask Попытаться почини...
-Delay 0.5
+Delay 0,5
 SetTask 
-Delay 1.5
+Delay 1,5
 SetTask Я хочу домой...

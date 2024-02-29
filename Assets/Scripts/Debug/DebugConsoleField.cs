@@ -19,14 +19,14 @@ namespace AIAD
         }
         private void ConsoleActivationAction()
         {
-            enabled = true;
+            gameObject.SetActive(true);
             DebugConsole.InputChangedEvent += ConsoleInputChangedAction;
             DebugConsole.ConsoleCommandExecutedEvent += ConsoleInputChangedAction;
             ConsoleInputChangedAction(DebugConsole.ConsoleInput);
         }
         private void ConsoleDeactivationAction()
         {
-            enabled = false;
+            gameObject.SetActive(false);
             DebugConsole.InputChangedEvent -= ConsoleInputChangedAction;
             DebugConsole.ConsoleCommandExecutedEvent-= ConsoleInputChangedAction;
         }

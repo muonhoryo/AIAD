@@ -27,6 +27,8 @@ namespace AIAD.Player
             MovingModule = MovingModuleComponent as IMovingModule;
             ViewDirectionModule = ViewDirectionModuleComponent as IViewDirectionModule;
             InteractionModule=InteractionModuleComponent as IInteractionModule;
+
+            Registry.PLayerController = this;
         }
 
 
