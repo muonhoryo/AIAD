@@ -6,6 +6,7 @@ Shader "Custom/CockpitShader_Transparent"{
         _GlassAlphaMap("GlassMap (RGB)",2D) = "white"{}
         _AnimationAlphaMap("AnimMap (RGB)",2D) = "white"{}
         _Threshold("Threshold",Range(0,1)) = 1
+        _Transparency("Transparency",Range(0,1))=1
     }
         SubShader
         {
@@ -20,6 +21,7 @@ Shader "Custom/CockpitShader_Transparent"{
             sampler2D _GlassAlphaMap;
             sampler2D _AnimationAlphaMap;
             half _Threshold;
+            half _Transparency;
 
             struct Input
             {
@@ -30,14 +32,14 @@ Shader "Custom/CockpitShader_Transparent"{
 
             void surf(Input IN, inout SurfaceOutputStandard o)
             {
-                half thr = _Threshold * 0.4;
+                half thr = _Threshold;
                 fixed4 col = tex2D(_GlassAlphaMap, IN.uv_GlassAlphaMap);
                 bool isPassedWindow = length(tex2D(_AnimationAlphaMap, IN.uv_AnimationAlphaMap).rgb) <= thr;
                 bool isPassedGlassTexture = col.rgb != fixed3(0, 0, 0);
                 bool isPassed = isPassedWindow && isPassedGlassTexture;
                 if (isPassed) {
                     o.Albedo = fixed3(0,0,0);
-                    o.Alpha = length(col.rgb);
+                    o.Alpha = length(col.rgb)* _Transparency;
                 }
                 else {
                     clip(-1);

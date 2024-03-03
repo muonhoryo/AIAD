@@ -31,7 +31,7 @@ Shader "Custom/CockpitShader"
 
         void surf (Input IN, inout SurfaceOutputStandard o)
         {
-            half thr = _Threshold * 0.4;
+            half thr = _Threshold; //*0.4;
             bool isPassedWindow = length(tex2D(_AnimationAlphaMap, IN.uv_AnimationAlphaMap).rgb) > thr;
             if (isPassedWindow) {
                 o.Normal = UnpackNormal(tex2D(_NormalMap, IN.uv_NormalMap));

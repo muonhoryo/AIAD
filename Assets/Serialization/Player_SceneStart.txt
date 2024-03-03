@@ -6,3 +6,4 @@ SetView 274,015 138,355 41,714
 TP 10 2797,827 0,995 3,493
 SetAnimTrigger 10 Bed
 TurnInteraction 1 Off
+SetAnimTrigger 25 Show

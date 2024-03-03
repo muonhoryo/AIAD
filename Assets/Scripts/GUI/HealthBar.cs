@@ -29,7 +29,7 @@ namespace AIAD
             }
 
             if (HPModule == null)
-                throw new AIADException("Missing HPModule.", ExcSrc);
+                throw new AIADException("Missing HPModule_.", ExcSrc);
             if (MaterialOwner == null)
                 throw new AIADException("Missing MaterialOwner.", ExcSrc);
 

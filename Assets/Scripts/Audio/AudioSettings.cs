@@ -27,14 +27,24 @@ namespace AIAD
         private static string MusicVolumeLevelName;
         private static string AmbientVolumeLevelName;
 
+        private static string SoundsTestLVlmLvlName;
+        private static string MusicTestLVlmLvlName;
+        private static string AmbientTestLVlmLvlName;
+
         public static void SetConsts(AudioMixer MasterMixer,string GlobalVolumeLevelName,
-            string SoundsVolumeLevelName, string MusicVolumeLevelName, string AmbientVolumeLevelName)
+            string SoundsVolumeLevelName, string MusicVolumeLevelName, string AmbientVolumeLevelName,
+            string SoundsTestLVlmLvlName, string MusicTestLVlmLvlName, string AmbientTestLVlmLvlName)
         {
             AudioSettings.MasterMixer= MasterMixer;
             AudioSettings.GlobalVolumeLevelName= GlobalVolumeLevelName;
             AudioSettings.SoundsVolumeLevelName= SoundsVolumeLevelName;
             AudioSettings.MusicVolumeLevelName = MusicVolumeLevelName;
             AudioSettings.AmbientVolumeLevelName= AmbientVolumeLevelName;
+
+            AudioSettings.SoundsTestLVlmLvlName = SoundsTestLVlmLvlName;
+            AudioSettings.MusicTestLVlmLvlName = MusicTestLVlmLvlName;
+            AudioSettings.AmbientTestLVlmLvlName = AmbientTestLVlmLvlName;
+
             GlobalVolumeLevel_ = GlobalVolumeLevel_;
             SoundsVolumeLevel_ = SoundsVolumeLevel_;
             MusicVolumeLevel_ = MusicVolumeLevel_;
@@ -69,6 +79,7 @@ namespace AIAD
             set
             {
                 SetVolume(ref SoundsVolumeLevel, value, in SoundsVolumeLevelName);
+                SetVolume(ref SoundsVolumeLevel, value, in SoundsTestLVlmLvlName);
                 SoundsVolumeLevelChangedEvent(SoundsVolumeLevel);
             }
         }
@@ -78,6 +89,7 @@ namespace AIAD
             set
             {
                 SetVolume(ref MusicVolumeLevel, value, in MusicVolumeLevelName);
+                SetVolume(ref MusicVolumeLevel, value, in MusicTestLVlmLvlName);
                 MusicVolumeLevelChangedEvent(MusicVolumeLevel);
             }
         }
@@ -87,7 +99,19 @@ namespace AIAD
             set
             {
                 SetVolume(ref AmbientVolumeLevel, value, in AmbientVolumeLevelName);
+                SetVolume(ref AmbientVolumeLevel, value, in AmbientTestLVlmLvlName);
                 AmbientVolumeLevelChangedEvent(AmbientVolumeLevel);
+            }
+        }
+
+        public static void SetAudioVolume(AudioVolumeType vlmType,int volume)
+        {
+            switch (vlmType)
+            {
+                case AudioVolumeType.Global: GlobalVolumeLevel_ = volume; break;
+                case AudioVolumeType.Sounds: SoundsVolumeLevel_ = volume; break;
+                case AudioVolumeType.Music: MusicVolumeLevel_ = volume; break;
+                case AudioVolumeType.Ambient: AmbientVolumeLevel_ = volume; break;
             }
         }
     }

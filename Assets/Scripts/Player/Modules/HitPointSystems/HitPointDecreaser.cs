@@ -7,13 +7,18 @@ namespace AIAD.Player.COM
 {
     public sealed class HitPointDecreaser : MonoBehaviour,ILockableModule
     {
+        private const int MaxDecreasedPointCount = 100;
+
         [SerializeField] private MonoBehaviour HPModuleComponent;
 
         [SerializeField][Range(0,10)] private float TimeInterval;
-        [SerializeField][Range(1,100)] private int DecreasedPointCount;
+        [SerializeField][Range(1, MaxDecreasedPointCount)] private int DecreasedPointCount;
         [SerializeField] private bool IsActiveOnStart=false;
 
-        private IHitPointModule HPModule;
+        public float DecreasingTimeInterval_ => TimeInterval;
+        public int DecreasingPointCount_ => DecreasedPointCount;
+
+        public IHitPointModule HPModule_ { get; private set; }
 
         private bool IsWorking = false;
 
@@ -25,9 +30,9 @@ namespace AIAD.Player.COM
                 throw new AIADException("TimeInterval must be greater than zero.", ExcSrc);
             if (DecreasedPointCount <= 0)
                 throw new AIADException("DecreasedPointCount must be greater than zero", ExcSrc);
-            HPModule = HPModuleComponent as IHitPointModule;
-            if (HPModule == null)
-                throw new AIADMissingModuleException("HPModule", ExcSrc);
+            HPModule_ = HPModuleComponent as IHitPointModule;
+            if (HPModule_ == null)
+                throw new AIADMissingModuleException("HPModule_", ExcSrc);
 
             if(IsActiveOnStart)
                 StartModuleWorking();
@@ -37,20 +42,44 @@ namespace AIAD.Player.COM
             while (true)
             {
                 yield return new WaitForSeconds(TimeInterval);
-                HPModule.ChangePointCount(-DecreasedPointCount);
+                HPModule_.ChangePointCount(-DecreasedPointCount);
             }
         }
         public void StartModuleWorking()
         {
             StartCoroutine(DecreaseStep());
             IsWorking = true;
-            HPModule.HPCountHasBecomeZeroEvent += StopModuleWorking;
+            HPModule_.HPCountHasBecomeZeroEvent += StopModuleWorking;
         }
         public void StopModuleWorking()
         {
             StopAllCoroutines();
             IsWorking = false;
-            HPModule.HPCountHasBecomeZeroEvent -= StopModuleWorking;
+            HPModule_.HPCountHasBecomeZeroEvent -= StopModuleWorking;
+        }
+        public void SetDecreasingSpeed(float pointPerSecond)
+        {
+            if (pointPerSecond <= 0)
+                throw new AIADException("Speed must be greater than null.", "HitPointDecreaser.SetDecreasingSpeed()");
+
+            float newDecPntCount = pointPerSecond * TimeInterval;
+            if (newDecPntCount > MaxDecreasedPointCount)
+            {
+                TimeInterval = MaxDecreasedPointCount / pointPerSecond;
+                DecreasedPointCount = MaxDecreasedPointCount;
+                return;
+            }
+            else
+            {
+                float roundedCount = Mathf.Round(newDecPntCount);
+                if (roundedCount != newDecPntCount)
+                {
+                    TimeInterval *= (newDecPntCount / roundedCount);
+                    DecreasedPointCount = (int)roundedCount;
+                    return;
+                }
+            }
+            DecreasedPointCount = (int)newDecPntCount;
         }
 
         public void Lock() => StopModuleWorking();

@@ -1,16 +1,12 @@
-// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
-
-Shader "Custom/UI/InterfaceBar"
+Shader "Custom/UI/InterfaceImage"
 {
     Properties
     {
         _MainTex("Main Texture", 2D) = "white" {}
-        _Mask("Mask",2D) = "white" {}
-        _Threshold("Threshold",Range(0,1)) = 1
         _Color("Tint", Color) = (1, 1, 1, 1)
         _StencilRef("StencilRef",Integer) = 0
-        _StencilComp("StencilComparasion",Integer) = 0
-        _StencilReadMask("StencilReadMask",Integer) = 0
+        _StencilComp("StencilComparasion",Integer)=0
+        _StencilReadMask("StencilReadMask",Integer)=0
         _StencilWriteMask("StencilWriteMask",Integer) = 0
         _StencilOpeation("StencilOperation",Integer) = 0
     }
@@ -44,9 +40,8 @@ Shader "Custom/UI/InterfaceBar"
                 #pragma vertex vert
                 #pragma fragment frag
 
+
                 sampler2D _MainTex;
-                sampler2D _Mask;
-                fixed _Threshold;
                 fixed4 _Color;
 
                 struct appdata
@@ -69,22 +64,17 @@ Shader "Custom/UI/InterfaceBar"
                     o.vertex = UnityObjectToClipPos(IN.vertex);
                     o.texcoord = IN.texcoord;
                     o.color = IN.color;
+
                     return o;
                 }
 
                 fixed4 frag(v2f IN) : SV_Target
                 {
-                    fixed4 color;
-                    fixed len = (tex2D(_Mask, IN.texcoord)).r;
-                    if (len >= _Threshold) {
-                        color =fixed4(0 , 0 , 0 ,0);
-                    }
-                    else {
-                        color = (tex2D(_MainTex, IN.texcoord))*IN.color * _Color;
-                    }
+                    fixed4 color=(tex2D(_MainTex, IN.texcoord)) * IN.color * _Color;
                     return color;
                 }
                     ENDCG
+
             }
         }
 }

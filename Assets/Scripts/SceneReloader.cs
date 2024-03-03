@@ -9,6 +9,10 @@ namespace AIAD
     {
         public void ReloadScene()
         {
+            ReturnToMainMenu();
+        }
+        public static void ReturnToMainMenu()
+        {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }

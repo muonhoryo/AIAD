@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace AIAD
 {
-    public sealed class MainMenuButton : MonoBehaviour,IPointerUpHandler,IPointerDownHandler,IPointerEnterHandler,IPointerExitHandler
+    public class MainMenuButton : MonoBehaviour,IPointerUpHandler,IPointerDownHandler,IPointerEnterHandler,IPointerExitHandler
     {
         [SerializeField] private Image ButtonImage;
         [SerializeField] private TextMeshProUGUI Text;
@@ -27,6 +27,7 @@ namespace AIAD
             ButtonImage.sprite = PressedSprite;
             if (!string.IsNullOrEmpty(SLScripts_Click))
                 SLScripts_Click.RunSLScripts();
+            OnPointerDownAction(eventData);
         }
         void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
         {
@@ -40,6 +41,8 @@ namespace AIAD
         {
             Text.color = NormalColor;
         }
+
+        protected virtual void OnPointerDownAction(PointerEventData eventData) { }
     }
 
 }

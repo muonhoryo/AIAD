@@ -32,7 +32,7 @@ namespace AIAD.Player.COM
             HPModule = HPModuleComponent as IHitPointModule;
 
             if (HPModule == null)
-                throw new AIADException("Missing HPModule.", "LoewHealthPostProcessingChanger.Awake()");
+                throw new AIADException("Missing HPModule_.", "LoewHealthPostProcessingChanger.Awake()");
 
             HPModule.HPCountHasChangedEvent += HPHasChangedAction;
         }

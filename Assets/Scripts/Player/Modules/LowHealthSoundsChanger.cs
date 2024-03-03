@@ -26,7 +26,7 @@ namespace AIAD.Player.COM
             HPModule = HPModuleComponent as IHitPointModule;
 
             if (HPModule == null)
-                throw new AIADException("Missing HPModule.", ExcSrc);
+                throw new AIADException("Missing HPModule_.", ExcSrc);
             if (ChangingSoundsVolumeFuncs == null || ChangingSoundsVolumeFuncs.Length <= 0)
                 throw new AIADException("Volume Funcs's array is null or empty.", ExcSrc);
             if (SoundsSources == null || SoundsSources.Length <= 0)

@@ -15,6 +15,10 @@ namespace AIAD
         [SerializeField] private string MusicVolumeLevelName;
         [SerializeField] private string AmbientVolumeLevelName;
 
+        [SerializeField] private string SoundsTestVolumeLevelName;
+        [SerializeField] private string MusicTestVolumeLevelName;
+        [SerializeField] private string AmbientTestVolumeLevelName;
+
         [SerializeField] private string SLScriptsSerializationPath;
         [SerializeField] private string SLScriptsFilesType;
         [SerializeField] private string SoundsPath;
@@ -41,6 +45,12 @@ namespace AIAD
                 throw new AIADException("MusicVolumeLevelName cannot be null or empty.", ExcSrc);
             if (string.IsNullOrEmpty(AmbientVolumeLevelName))
                 throw new AIADException("AmbientVolumeLevelName cannot be null or empty.", ExcSrc);
+            if (string.IsNullOrEmpty(SoundsTestVolumeLevelName))
+                throw new AIADException("SoundsTestVolumeLevelName cannot be null or empty.", ExcSrc);
+            if (string.IsNullOrEmpty(MusicTestVolumeLevelName))
+                throw new AIADException("MusicTestVolumeLevelName cannot be null or empty.", ExcSrc);
+            if (string.IsNullOrEmpty(AmbientTestVolumeLevelName))
+                throw new AIADException("AmbientTestVolumeLevelName cannot be null or empty.", ExcSrc);
             if (MasterMixer == null)
                 throw new AIADException("Missing MasterMixer.", ExcSrc);
 
@@ -50,7 +60,8 @@ namespace AIAD
             AudioManager.MusicPath = MusicPath;
             AudioManager.SoundsPath= SoundsPath;
 
-            AudioSettings.SetConsts(MasterMixer, GlobalVolumeLevelName, SoundsVolumeLevelName, MusicVolumeLevelName, AmbientVolumeLevelName);
+            AudioSettings.SetConsts(MasterMixer, GlobalVolumeLevelName, SoundsVolumeLevelName, MusicVolumeLevelName, AmbientVolumeLevelName,
+                SoundsTestVolumeLevelName,MusicTestVolumeLevelName,AmbientTestVolumeLevelName);
 
             SceneManager.LoadScene(MainSceneName, LoadSceneMode.Single);
         }
