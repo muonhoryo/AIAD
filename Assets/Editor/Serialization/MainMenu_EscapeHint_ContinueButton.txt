@@ -1,3 +1,3 @@
 SetAnimTrigger 35 Hide
-Delay 0,4
+Delay 0,05
 SetAnimTrigger 34 Show

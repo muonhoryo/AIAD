@@ -22,6 +22,7 @@ namespace AIAD.Player
         private IViewDirectionModule ViewDirectionModule;
         private IInteractionModule InteractionModule;
 
+
         private void Awake()
         {
             MovingModule = MovingModuleComponent as IMovingModule;
@@ -44,9 +45,9 @@ namespace AIAD.Player
         {
             string GetExceptionSource() => "PlayerController.MovingAction()";
 
+#if UNITY_EDITOR
             void ThrowMisssing(string moduleName)
             {
-#if UNITY_EDITOR
                 Debug.LogWarning(AIADMissingModuleException.MissingModuleMessage_Full(moduleName, GetExceptionSource()));
             }
             if (MovingModule == null)
@@ -76,11 +77,11 @@ namespace AIAD.Player
         {
             return Input.GetAxisRaw(InputName_MouseXAxis);
         }
-        private float GetVertViewAxis()
+        float GetVertViewAxis()
         {
             return Input.GetAxisRaw(InputName_MouseYAxis);
         }
-        private void ViewChangingAction()
+        void ViewChangingAction()
         {
             if (ViewDirectionModule == null)
             {
@@ -92,7 +93,7 @@ namespace AIAD.Player
             ViewDirectionModule.ChangeViewDirection(GetHorViewAxis(), GetVertViewAxis());
         }
 
-        private void Interaction()
+        void Interaction()
         {
             if (InteractionModule==null)
             {
@@ -107,15 +108,22 @@ namespace AIAD.Player
             }
         }
 
-        private void Update()
+        void Update()
         {
             MovingAction();
             ViewChangingAction();
             Interaction();
         }
 
-        void ILockableModule.Lock() => enabled = false;
-        void ILockableModule.Unlock() => enabled = true;
+        void ILockableModule.Lock()
+        {
+            enabled = false;
+        }
+
+        void ILockableModule.Unlock()
+        {
+            enabled = true;
+        }
         bool ILockableModule.IsLocked_ => !enabled;
     }
 }

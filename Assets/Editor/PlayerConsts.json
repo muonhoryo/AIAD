@@ -1,0 +1,7 @@
+{
+    "MaxHP": 7200,
+    "LowHP": 2400,
+    "DecreaseTimeInterval": 0.10000000149011612,
+    "DecreaseCount": 1,
+    "DecBooster_MaxRemTime": 30.0
+}

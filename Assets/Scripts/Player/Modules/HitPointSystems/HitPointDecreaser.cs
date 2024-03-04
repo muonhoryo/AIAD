@@ -7,12 +7,10 @@ namespace AIAD.Player.COM
 {
     public sealed class HitPointDecreaser : MonoBehaviour,ILockableModule
     {
-        private const int MaxDecreasedPointCount = 100;
+        public const int MaxDecreasedPointCount = 100;
 
         [SerializeField] private MonoBehaviour HPModuleComponent;
 
-        [SerializeField][Range(0,10)] private float TimeInterval;
-        [SerializeField][Range(1, MaxDecreasedPointCount)] private int DecreasedPointCount;
         [SerializeField] private bool IsActiveOnStart=false;
 
         public float DecreasingTimeInterval_ => TimeInterval;
@@ -20,21 +18,26 @@ namespace AIAD.Player.COM
 
         public IHitPointModule HPModule_ { get; private set; }
 
+        private float TimeInterval;
+        private int DecreasedPointCount;
         private bool IsWorking = false;
 
         private void Awake()
         {
             string ExcSrc = "HitPointDecreaser.Awake()";
 
-            if (TimeInterval <= 0)
+            if (PlayerHPSystemsInit.Consts.DecreaseTimeInterval<= 0)
                 throw new AIADException("TimeInterval must be greater than zero.", ExcSrc);
-            if (DecreasedPointCount <= 0)
+            if (PlayerHPSystemsInit.Consts.DecreaseCount <= 0)
                 throw new AIADException("DecreasedPointCount must be greater than zero", ExcSrc);
             HPModule_ = HPModuleComponent as IHitPointModule;
             if (HPModule_ == null)
                 throw new AIADMissingModuleException("HPModule_", ExcSrc);
 
-            if(IsActiveOnStart)
+            DecreasedPointCount = PlayerHPSystemsInit.Consts.DecreaseCount;
+            TimeInterval = PlayerHPSystemsInit.Consts.DecreaseTimeInterval;
+
+            if (IsActiveOnStart)
                 StartModuleWorking();
         }
         private IEnumerator DecreaseStep()

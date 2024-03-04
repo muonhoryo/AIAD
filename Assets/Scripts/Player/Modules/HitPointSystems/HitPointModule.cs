@@ -15,23 +15,21 @@ namespace AIAD.Player.COM
         [SerializeField] private string SLScriptsIDS_LowHPAchivied;
         [SerializeField] private string SLScriptsIDS_HPBecameZero;
 
-        [SerializeField][Range(1,1000000)] private int MaxHP;
-        [SerializeField][Range(1, 1000000)] private int LowHPLevel;
 
         private int CurrentHP;
 
         private void Awake()
         {
-            string ExcSrc = "HitPointModule.Awake()";
-            if (MaxHP <= 0)
+            string ExcSrc = "HitPointModule.Start()";
+            if (PlayerHPSystemsInit.Consts.MaxHP <= 0)
                 throw new AIADException("MaxHP must be greater than zero",ExcSrc );
 
-            if (LowHPLevel <= 0)
+            if (PlayerHPSystemsInit.Consts.LowHP <= 0)
                 throw new AIADException("LowHPLevel must be greater than zero", ExcSrc);
-            if (LowHPLevel >= MaxHP)
+            if (PlayerHPSystemsInit.Consts.LowHP >= PlayerHPSystemsInit.Consts.MaxHP)
                 throw new AIADException("LowHPLevel must be less than MaxHP", ExcSrc);
 
-            CurrentHP = MaxHP;
+            CurrentHP = PlayerHPSystemsInit.Consts.MaxHP;
 
             if (!string.IsNullOrEmpty(SLScriptsIDS_LowHPAchivied))
                 LowHPCountHasAchievedEvent += (i) => SLScriptsIDS_LowHPAchivied.RunSLScripts();
@@ -41,15 +39,15 @@ namespace AIAD.Player.COM
 
         public void SetPointCount(int count)
         {
-            if (count > MaxHP)
-                count = MaxHP;
+            if (count > PlayerHPSystemsInit.Consts.MaxHP)
+                count = PlayerHPSystemsInit.Consts.MaxHP;
             CurrentHP = count;
             if (CurrentHP <= 0)
             {
                 CurrentHP = 0;
                 HPCountHasBecomeZeroEvent();
             }
-            else if (CurrentHP <= LowHPLevel)
+            else if (CurrentHP <= PlayerHPSystemsInit.Consts.LowHP)
                 LowHPCountHasAchievedEvent(CurrentHP);
             HPCountHasChangedEvent(CurrentHP);
         }
@@ -59,7 +57,7 @@ namespace AIAD.Player.COM
         }
 
         public int CurrentHP_ => CurrentHP;
-        public int MaxHP_ => MaxHP;
-        public int LowHPLimit_ => LowHPLevel;
+        public int MaxHP_ => PlayerHPSystemsInit.Consts.MaxHP;
+        public int LowHPLimit_ => PlayerHPSystemsInit.Consts.LowHP;
     }
 }

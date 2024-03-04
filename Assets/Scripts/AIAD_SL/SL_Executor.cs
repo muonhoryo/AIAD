@@ -198,6 +198,10 @@ namespace AIAD.SL
                     Command_SetAudioVolume(syntax);
                     break;
 
+                case "Quit":
+                    Command_Quit();
+                    break;
+
                 default:
                     throw new AIADException($"Unknown command {syntax[0]}.", "SL_Executor.ExecuteCommandBySyntax");
             }
@@ -687,6 +691,10 @@ namespace AIAD.SL
                 case AudioSettings.AudioVolumeType.Music: AudioSettings.MusicVolumeLevel_ = vlmLevel; break;
                 case AudioSettings.AudioVolumeType.Ambient: AudioSettings.AmbientVolumeLevel_ = vlmLevel; break;
             }
+        }
+        private static void Command_Quit()
+        {
+            Application.Quit();
         }
     }
 }

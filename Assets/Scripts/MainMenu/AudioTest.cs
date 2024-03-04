@@ -15,12 +15,9 @@ namespace AIAD
 
         protected override void OnPointerDownAction(PointerEventData eventData)
         {
-            if(ActiveTest!=null&&ActiveTest.IsPlayedTest())
-            {
-                ActiveTest.TurnTest();
-            }
-            ActiveTest = this;
             TurnTest();
+            StopActiveTest();
+            ActiveTest = this;
         }
 
         private bool IsPlayedTest() => TestSource.isPlaying;
@@ -32,6 +29,14 @@ namespace AIAD
             {
                 TestSource.time = 0;
                 TestSource.Play();
+            }
+        }
+
+        public static void StopActiveTest()
+        {
+            if (ActiveTest != null && ActiveTest.IsPlayedTest())
+            {
+                ActiveTest.TurnTest();
             }
         }
     }

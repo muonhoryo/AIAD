@@ -1,4 +1,5 @@
 
+using static AIAD.PlayerHPSystemsInit;
 using AIAD.Exceptions;
 using UnityEngine;
 
@@ -6,7 +7,6 @@ namespace AIAD.Player.COM
 {
     public sealed class HPDecreaserSpeedUpBoost : MonoBehaviour
     {
-        [SerializeField][Range(0,100)] private float MaxRemainedLifeTime;
         [SerializeField] private HitPointDecreaser OwnedScript;
 
         private void Awake()
@@ -20,9 +20,9 @@ namespace AIAD.Player.COM
         public void BoostDecreasing()
         {
             float remainedTime = OwnedScript.HPModule_.CurrentHP_ / (OwnedScript.DecreasingPointCount_ / OwnedScript.DecreasingTimeInterval_);
-            if (remainedTime > MaxRemainedLifeTime)
+            if (remainedTime > Consts.DecBooster_MaxRemTime)
             {
-                float newDecreasingSpeed = OwnedScript.HPModule_.CurrentHP_ / MaxRemainedLifeTime;
+                float newDecreasingSpeed = OwnedScript.HPModule_.CurrentHP_ / Consts.DecBooster_MaxRemTime;
                 OwnedScript.SetDecreasingSpeed(newDecreasingSpeed);
             }
         }

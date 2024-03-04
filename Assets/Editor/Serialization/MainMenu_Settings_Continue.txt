@@ -1,0 +1,4 @@
+SetAnimTrigger 33 Hide
+Delay 0,05
+SetAnimTrigger 35 Show
+Message 33 StopActiveTest
