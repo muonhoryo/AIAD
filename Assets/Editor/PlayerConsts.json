@@ -3,5 +3,11 @@
     "LowHP": 2400,
     "DecreaseTimeInterval": 0.10000000149011612,
     "DecreaseCount": 1,
-    "DecBooster_MaxRemTime": 30.0
+    "DecBooster_MaxRemTime": 30.0,
+    "StandMovCameraSensitive_X": 1.5,
+    "StandMovCameraSensitive_Y": 1.5,
+    "DroneCameraSensitive_Z": 1.0,
+    "PlayerStandMovingSpeed": 1.0,
+    "DroneMovingSpeed": 3.0,
+    "PlayerChairMovingSpeed": 0.019999999552965165
 }

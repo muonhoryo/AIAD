@@ -88,6 +88,14 @@ namespace AIAD
             }
         }
         
+        public void SetIntensityModifier(float newMod,float oldMod)
+        {
+            float mod = newMod / oldMod;
+
+            IntensityMin *=mod;
+            IntensityMax*= mod;
+            PointLight.intensity*= mod;
+        }
     }
 
 }

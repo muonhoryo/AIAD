@@ -1,4 +1,4 @@
 SetObjActive 29 Off
 SetObjActive 30 On
-Delay 7
+Delay 10
 SetObjActive 30 Off

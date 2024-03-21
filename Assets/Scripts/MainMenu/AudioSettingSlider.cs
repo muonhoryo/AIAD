@@ -10,6 +10,11 @@ namespace AIAD
         [SerializeField] private Slider Owner;
         [SerializeField] private AudioSettings.AudioVolumeType AudioType;
 
+        private void Awake()
+        {
+            ChangeAudioVolume();
+        }
+
         public void ChangeAudioVolume()
         {
             AudioSettings.SetAudioVolume(AudioType, (int)Owner.value);

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using Unity.VisualScripting;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 namespace AIAD.SL
 {
@@ -200,6 +201,11 @@ namespace AIAD.SL
 
                 case "Quit":
                     Command_Quit();
+                    break;
+
+                //Muliply lighintg's intensity on modifier
+                case "SetLighting":
+                    Command_SetLighting(syntax);
                     break;
 
                 default:
@@ -695,6 +701,34 @@ namespace AIAD.SL
         private static void Command_Quit()
         {
             Application.Quit();
+        }
+        private static void Command_SetLighting(string[] syntax)
+        {
+            string ExcSrc = "SL_Executor.Command_SetLighting()";
+
+            if (syntax.Length < 2)
+                throw new AIADException("Haven't any argument.", ExcSrc);
+
+            float mod;
+            if (!float.TryParse(syntax[1], out mod))
+                throw new AIADException("Cant parse modifier.", ExcSrc);
+            if (mod == 0)
+                throw new AIADException("Modifier cannot be equal zero.", ExcSrc);
+
+            Light[] lights = GameObject.FindObjectsOfType<Light>();
+            foreach (var light in lights) 
+            {
+                LampFlashing_Fading fading=light.GetComponentInParent<LampFlashing_Fading>();
+                if(fading!=null)
+                {
+                    fading.SetIntensityModifier(mod, Registry.LightingModifier);
+                }
+                else
+                {
+                    light.intensity = light.intensity / Registry.LightingModifier * mod;
+                }
+            }
+            Registry.LightingModifier = mod;
         }
     }
 }

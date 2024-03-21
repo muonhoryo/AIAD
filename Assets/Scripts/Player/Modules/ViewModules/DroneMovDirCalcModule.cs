@@ -12,8 +12,6 @@ namespace AIAD.Player.COM
 
         private ICameraViewBehaviour CameraBehaviour;
 
-        [SerializeField] private float RotationSpeed;
-
         private AIADException MissingViewModuleException(string calledFuncName) =>
             new AIADMissingModuleException("ViewModule", $"MovDirFromViewDirModule.{calledFuncName}()");
         private void Awake()
@@ -28,7 +26,7 @@ namespace AIAD.Player.COM
                 throw MissingViewModuleException("IMovDirCalcModule.GetDirection()");
             if (HorizontalAxisValue != 0)
             {
-                CameraBehaviour.Rotate(new Vector3(0, 0, HorizontalAxisValue*RotationSpeed));
+                CameraBehaviour.Rotate(new Vector3(0, 0, HorizontalAxisValue*ExternalConsts.Consts_.DroneCameraSensitive_Z ));
             }
             return CameraBehaviour.CurrentViewDirection_ * VerticalAxisValue;
         }

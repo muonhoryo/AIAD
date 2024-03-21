@@ -15,13 +15,10 @@ namespace AIAD.Player.COM
         [SerializeField] private MonoBehaviour CameraBehaviourComponent;
         private ICameraViewBehaviour CameraViewBehaviour;
 
-        [SerializeField] private float XSensitive;
-        [SerializeField] private float YSensitive;
-
         public void ChangeViewDirection(float XMoving, float YMoving)
         {
-            float YStep = XMoving * XSensitive; //Rotate around YAxis, horizontal rotation
-            float XStep = -YMoving * YSensitive; //Rotate around XAxis, vertical rotation
+            float YStep = XMoving *ExternalConsts.Consts_.StandMovCameraSensitive_X; //Rotate around YAxis, horizontal rotation
+            float XStep = -YMoving *ExternalConsts.Consts_.StandMovCameraSensitive_Y; //Rotate around XAxis, vertical rotation
             CameraViewBehaviour.Rotate(new Vector2(XStep, YStep));
 
             ChangeViewDirectionEvent(CurrentViewDirection_, CurrentHorizontalViewDirection_);

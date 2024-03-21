@@ -13,6 +13,7 @@ namespace AIAD
         private void StartMovingAction(Vector3 direction)
         {
             enabled = true;
+            MovingModule.StartMovingEvent -= StartMovingAction;
         }
         private void StopMovingAction()
         {
@@ -22,22 +23,31 @@ namespace AIAD
         {
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, angle, transform.eulerAngles.z);
         }
-        private void Awake()
+        
+        private void Deactivation()
         {
-            CameraBehaviour.ChangeChairDirectionEvent += Rotate;
             if (MovingModule != null)
             {
                 MovingModule.StartMovingEvent += StartMovingAction;
-                MovingModule.StopMovingEvent += StopMovingAction;
             }
             enabled = false;
         }
+        private void Awake()
+        {
+            CameraBehaviour.ChangeChairDirectionEvent += Rotate;
+            Deactivation();
+        }
         private void FixedUpdate()
         {
-            transform.position = new Vector3
-                (MovingModule.CurrentMovableObjectPosition_.x,
-                transform.position.y,
-                MovingModule.CurrentMovableObjectPosition_.z);
+            if (MovingModule.IsLocked_)
+                Deactivation();
+            else
+            {
+                transform.position = new Vector3
+                    (MovingModule.CurrentMovableObjectPosition_.x,
+                    transform.position.y,
+                    MovingModule.CurrentMovableObjectPosition_.z);
+            }
         }
     }
 }

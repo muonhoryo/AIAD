@@ -15,7 +15,6 @@ namespace AIAD.Player.COM
 
         private IMovDirCalcModule MovDirCalculator;
 
-        [SerializeField] private float MoveSpeed;
         [SerializeField] private Vector3 MovingAxis;
         [SerializeField] private Vector3 StartPointLocal;
         [SerializeField] private Vector3 EndPointLocal;
@@ -41,7 +40,7 @@ namespace AIAD.Player.COM
         }
         private void FixedUpdate()
         {
-            float stepSize = MovingDirection * MoveSpeed;
+            float stepSize = MovingDirection * ExternalConsts.Consts_.PlayerChairMovingSpeed;
             Vector3 step= MovingAxis * stepSize;
             Vector3 direction = MovingAxis * MovingDirection;
             void EndMoving(Vector3 endPoint)
@@ -120,7 +119,7 @@ namespace AIAD.Player.COM
         }
 
         bool IMovingModule.IsMoving_ { get => enabled; }
-        bool ILockableModule.IsLocked_ => !IsWorking;
+        public bool IsLocked_ => !IsWorking;
 
         Vector3 IMovingModule.MovingDirection_ => HorizontalMovingAxis*MovingDirection;
     }

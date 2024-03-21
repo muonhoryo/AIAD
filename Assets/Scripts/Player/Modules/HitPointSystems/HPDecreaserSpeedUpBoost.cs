@@ -1,5 +1,5 @@
 
-using static AIAD.PlayerHPSystemsInit;
+using static AIAD.ExternalConsts;
 using AIAD.Exceptions;
 using UnityEngine;
 
@@ -20,9 +20,9 @@ namespace AIAD.Player.COM
         public void BoostDecreasing()
         {
             float remainedTime = OwnedScript.HPModule_.CurrentHP_ / (OwnedScript.DecreasingPointCount_ / OwnedScript.DecreasingTimeInterval_);
-            if (remainedTime > Consts.DecBooster_MaxRemTime)
+            if (remainedTime > Consts_.DecBooster_MaxRemTime)
             {
-                float newDecreasingSpeed = OwnedScript.HPModule_.CurrentHP_ / Consts.DecBooster_MaxRemTime;
+                float newDecreasingSpeed = OwnedScript.HPModule_.CurrentHP_ / Consts_.DecBooster_MaxRemTime;
                 OwnedScript.SetDecreasingSpeed(newDecreasingSpeed);
             }
         }

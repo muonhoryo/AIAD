@@ -2,6 +2,7 @@ LockCtrl
 SelectCameraMode 1
 SetCameraTarget null
 TP 10 2788,1 1,2 1,055
+TP 9 2788,1 0,875 0
 SetView 28,6 0 0
 SetObjActive 32 Off
 SetAnimTrigger 10 TerminalExit

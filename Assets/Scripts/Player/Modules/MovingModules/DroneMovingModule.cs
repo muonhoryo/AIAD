@@ -19,7 +19,6 @@ namespace AIAD.Player.COM
 
         private IMovDirCalcModule MovDirCalculator;
 
-        [SerializeField] private float Speed;
         [SerializeField] private float BoundsRadius;
 
         private Vector3 MovingDirection = Vector3.zero;
@@ -41,13 +40,14 @@ namespace AIAD.Player.COM
 
             IsWorking = false;
         }
+        private float Speed_ => ExternalConsts.Consts_.DroneMovingSpeed;
         private void FixedUpdate()
         {
             if (IsWorking)
             {
-                RGBody.AddForce(MovingDirection * Speed, ForceMode.Force);
-                if (RGBody.velocity.magnitude > Speed)
-                    RGBody.velocity = RGBody.velocity.normalized * Speed;
+                RGBody.AddForce(MovingDirection * Speed_, ForceMode.Force);
+                if (RGBody.velocity.magnitude > Speed_)
+                    RGBody.velocity = RGBody.velocity.normalized * Speed_;
             }
             if (Vector3.Distance(RGBody.gameObject.transform.position, BoundsCenter.transform.position) > BoundsRadius)
             {

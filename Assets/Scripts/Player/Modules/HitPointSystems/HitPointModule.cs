@@ -21,15 +21,15 @@ namespace AIAD.Player.COM
         private void Awake()
         {
             string ExcSrc = "HitPointModule.Start()";
-            if (PlayerHPSystemsInit.Consts.MaxHP <= 0)
+            if (ExternalConsts.Consts_.MaxHP <= 0)
                 throw new AIADException("MaxHP must be greater than zero",ExcSrc );
 
-            if (PlayerHPSystemsInit.Consts.LowHP <= 0)
+            if (ExternalConsts.Consts_.LowHP <= 0)
                 throw new AIADException("LowHPLevel must be greater than zero", ExcSrc);
-            if (PlayerHPSystemsInit.Consts.LowHP >= PlayerHPSystemsInit.Consts.MaxHP)
+            if (ExternalConsts.Consts_.LowHP >= ExternalConsts.Consts_.MaxHP)
                 throw new AIADException("LowHPLevel must be less than MaxHP", ExcSrc);
 
-            CurrentHP = PlayerHPSystemsInit.Consts.MaxHP;
+            CurrentHP = ExternalConsts.Consts_.MaxHP;
 
             if (!string.IsNullOrEmpty(SLScriptsIDS_LowHPAchivied))
                 LowHPCountHasAchievedEvent += (i) => SLScriptsIDS_LowHPAchivied.RunSLScripts();
@@ -39,15 +39,15 @@ namespace AIAD.Player.COM
 
         public void SetPointCount(int count)
         {
-            if (count > PlayerHPSystemsInit.Consts.MaxHP)
-                count = PlayerHPSystemsInit.Consts.MaxHP;
+            if (count > ExternalConsts.Consts_.MaxHP)
+                count = ExternalConsts.Consts_.MaxHP;
             CurrentHP = count;
             if (CurrentHP <= 0)
             {
                 CurrentHP = 0;
                 HPCountHasBecomeZeroEvent();
             }
-            else if (CurrentHP <= PlayerHPSystemsInit.Consts.LowHP)
+            else if (CurrentHP <= ExternalConsts.Consts_.LowHP)
                 LowHPCountHasAchievedEvent(CurrentHP);
             HPCountHasChangedEvent(CurrentHP);
         }
@@ -57,7 +57,7 @@ namespace AIAD.Player.COM
         }
 
         public int CurrentHP_ => CurrentHP;
-        public int MaxHP_ => PlayerHPSystemsInit.Consts.MaxHP;
-        public int LowHPLimit_ => PlayerHPSystemsInit.Consts.LowHP;
+        public int MaxHP_ => ExternalConsts.Consts_.MaxHP;
+        public int LowHPLimit_ => ExternalConsts.Consts_.LowHP;
     }
 }

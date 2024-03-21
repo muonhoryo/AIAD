@@ -16,8 +16,6 @@ namespace AIAD.Player.COM
 
         private IMovDirCalcModule MovDirCalculator;
 
-        [SerializeField] private float Speed;
-
         private Vector3 MovingDirection= Vector3.zero;
         private bool IsWorking = true;
 
@@ -34,11 +32,12 @@ namespace AIAD.Player.COM
                 throw new AIADException("RGBody wasn't initialized", ExcSrc);
             enabled = false;
         }
+        private float Speed_ => ExternalConsts.Consts_.PlayerStandMovingSpeed;
         private void FixedUpdate()
         {
-            RGBody.AddForce(MovingDirection* Speed, ForceMode.Force);
-            if (RGBody.velocity.magnitude > Speed)
-                RGBody.velocity = RGBody.velocity.normalized * Speed;
+            RGBody.AddForce(MovingDirection* Speed_, ForceMode.Force);
+            if (RGBody.velocity.magnitude > Speed_)
+                RGBody.velocity = RGBody.velocity.normalized * Speed_;
         }
         private void OnEnable()
         {

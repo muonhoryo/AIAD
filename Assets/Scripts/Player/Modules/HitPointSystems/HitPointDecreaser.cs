@@ -26,16 +26,16 @@ namespace AIAD.Player.COM
         {
             string ExcSrc = "HitPointDecreaser.Awake()";
 
-            if (PlayerHPSystemsInit.Consts.DecreaseTimeInterval<= 0)
+            if (ExternalConsts.Consts_.DecreaseTimeInterval<= 0)
                 throw new AIADException("TimeInterval must be greater than zero.", ExcSrc);
-            if (PlayerHPSystemsInit.Consts.DecreaseCount <= 0)
+            if (ExternalConsts.Consts_.DecreaseCount <= 0)
                 throw new AIADException("DecreasedPointCount must be greater than zero", ExcSrc);
             HPModule_ = HPModuleComponent as IHitPointModule;
             if (HPModule_ == null)
                 throw new AIADMissingModuleException("HPModule_", ExcSrc);
 
-            DecreasedPointCount = PlayerHPSystemsInit.Consts.DecreaseCount;
-            TimeInterval = PlayerHPSystemsInit.Consts.DecreaseTimeInterval;
+            DecreasedPointCount = ExternalConsts.Consts_.DecreaseCount;
+            TimeInterval = ExternalConsts.Consts_.DecreaseTimeInterval;
 
             if (IsActiveOnStart)
                 StartModuleWorking();

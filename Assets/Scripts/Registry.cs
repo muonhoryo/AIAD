@@ -17,5 +17,7 @@ namespace AIAD
         public static DebugConsoleController DebugConsoleController;
         public static TaskShower TaskShower;
         public static MusicChanger MusicChanger;
+
+        public static float LightingModifier=1;
     }
 }
